@@ -22,8 +22,30 @@ env:
   TF_LOG: INFO
 
 jobs:
+  static-analysis:
+    name: 'Static Analysis (Lint & Security)'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v3
+        with:
+          tflint_version: latest
+
+      - name: Init TFLint
+        run: tflint --init
+
+      - name: Run TFLint
+        run: tflint -f compact
+
+      - name: Run tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
+
   terraform-init:
     name: 'Terraform Init'
+    needs: static-analysis
     runs-on: ubuntu-latest
     defaults:
       run:
