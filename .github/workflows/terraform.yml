@@ -35,6 +35,10 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Create tfvars
+        run: echo "${{ secrets.TFVARS_CONTENT }}" > terraform.tfvars
+        # This assumes you add a secret named TFVARS_CONTENT with the content of your terraform.tfvars
+
       - name: Terraform Init
         run: terraform init
 
@@ -56,12 +60,14 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Create tfvars
+        run: echo "${{ secrets.TFVARS_CONTENT }}" > terraform.tfvars
+
       - name: Terraform Init
         run: terraform init
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-        # Note: If you have terraform.tfvars, make sure it's available or use -var-file
 
       - name: Upload Plan
         uses: actions/upload-artifact@v4
@@ -84,6 +90,9 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+
+      - name: Create tfvars
+        run: echo "${{ secrets.TFVARS_CONTENT }}" > terraform.tfvars
 
       - name: Download Plan
         uses: actions/download-artifact@v4
