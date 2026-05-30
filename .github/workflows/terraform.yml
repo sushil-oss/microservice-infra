@@ -36,15 +36,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Create tfvars
-        run: |
-          if [ -z "${{ secrets.TFVARS_CONTENT }}" ]; then
-            echo "ERROR: The github secret 'TFVARS_CONTENT' is missing or empty."
-            echo "Please add it in: Settings -> Secrets and variables -> Actions"
-            exit 1
-          fi
-          echo "${{ secrets.TFVARS_CONTENT }}" > terraform.tfvars
-
       - name: Terraform Init
         run: terraform init -input=false
 
@@ -65,14 +56,6 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-
-      - name: Create tfvars
-        run: |
-          if [ -z "${{ secrets.TFVARS_CONTENT }}" ]; then
-            echo "ERROR: The github secret 'TFVARS_CONTENT' is missing or empty."
-            exit 1
-          fi
-          echo "${{ secrets.TFVARS_CONTENT }}" > terraform.tfvars
 
       - name: Terraform Init
         run: terraform init -input=false
@@ -101,14 +84,6 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-
-      - name: Create tfvars
-        run: |
-          if [ -z "${{ secrets.TFVARS_CONTENT }}" ]; then
-            echo "ERROR: The github secret 'TFVARS_CONTENT' is missing or empty."
-            exit 1
-          fi
-          echo "${{ secrets.TFVARS_CONTENT }}" > terraform.tfvars
 
       - name: Download Plan
         uses: actions/download-artifact@v4

@@ -21,6 +21,5 @@ override.tf.json
 # Include plugin cache directories
 .terraform.lock.hcl
 
-# Ignore terraform.tfvars as it might contain secrets
-**/terraform.tfvars
+# Ignore terraform.tfvars.json as it might contain secrets
 **/terraform.tfvars.json
